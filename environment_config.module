@@ -17,31 +17,34 @@ use Drupal\Core\Serialization\Yaml;
  * puppet).
  */
 function environment_config_rebuild() {
-  if (!$environment_config_file = getenv('DRUPAL_CONFIG')) {
+  if (!$environment_config_dir = getenv('DRUPAL_CONFIG_DIR')) {
     return;
   }
 
-  if (!file_exists($environment_config_file)) {
-    \Drupal::logger('environment_config')->notice('Env var DRUPAL_CONFIG set, but file %environment_config_file not found', array('%environment_config_file' => $environment_config_file));
+  if (!file_exists($environment_config_dir)) {
+    \Drupal::logger('environment_config')->notice('Env var DRUPAL_CONFIG_DIR set, but file %environment_config_dir not found', array('%environment_config_dir' => $environment_config_dir));
     return;
   }
 
-  try {
-     $config = Yaml::decode(file_get_contents($environment_config_file));
-  }
-  catch (Exception $e) {
-    \Drupal::logger('environment_config')->error('Failed to decode %environment_config_file', array('%environment_config_file' => $environment_config_file));
+  if (!is_dir($environment_config_dir)) {
+    \Drupal::logger('environment_config')->notice('Env var DRUPAL_CONFIG_DIR set, but %environment_config_dir is not a directory', array('%environment_config_dir' => $environment_config_dir));
     return;
   }
 
-  if (empty($config['environment_config'])) {
-    \Drupal::logger('environment_config')->error('%environment_config_file does not contain an environment_config key', array('%environment_config_file' => $environment_config_file));
-    return;
-  }
-
-  foreach ($config['environment_config'] as $config_name => $config_values) {
-    foreach ($config_values as $key => $value) {
-	    \Drupal::configFactory()->getEditable($config_name)->set($key, $value)->save();
+  $dir = new DirectoryIterator($environment_config_dir);
+  foreach ($dir as $fileinfo) {
+    if ($fileinfo->isFile()) {
+      $config_name = basename($fileinfo->getFilename());
+      try {
+        $config_values = Yaml::decode(file_get_contents($fileinfo->getPathname()));
+        foreach ($config_values as $key => $value) {
+           \Drupal::configFactory()->getEditable($config_name)->set($key, $value)->save();
+        }
+      }
+      catch (Exception $e) {
+        \Drupal::logger('environment_config')->error('Failed to decode %config_name', array('%config_name' => $config_name));
+        return;
+      }
     }
   }
 
