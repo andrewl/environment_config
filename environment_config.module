@@ -34,11 +34,11 @@ function environment_config_rebuild() {
   $dir = new DirectoryIterator($environment_config_dir);
   foreach ($dir as $fileinfo) {
     if ($fileinfo->isFile()) {
-      $config_name = basename($fileinfo->getFilename());
+      $config_name = basename($fileinfo->getFilename(), ".yml");
       try {
         $config_values = Yaml::decode(file_get_contents($fileinfo->getPathname()));
         foreach ($config_values as $key => $value) {
-           \Drupal::configFactory()->getEditable($config_name)->set($key, $value)->save();
+          \Drupal::configFactory()->getEditable($config_name)->set($key, $value)->save();
         }
       }
       catch (Exception $e) {
