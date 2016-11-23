@@ -12,7 +12,7 @@ In Drupal 8, settings are managed in one of two ways.
   (https://www.drupal.org/docs/8/api/state-api)
 
 
-In most cases this is fine, however it does rely on module developers knowing ahead of time whether your use will require a setting to be the same across all environments (ie stored with Configuration API) or differ across environments (ie stored with the State API). In some cases you'll want to manage a Configuration setting on a per-environment basis (eg use a different API key on different environments) - if so, this module is for you.
+In most cases this is fine, however it does rely on module developers knowing ahead of time whether your use of their module will require a setting to be the same across all environments (ie stored with Configuration API) or differ across environments (ie stored with the State API). In some cases you'll want to manage a Configuration setting on a per-environment basis (eg use a different API key on different environments) - if so, this module is for you.
 
 This enables you to manage per-environment configurations in your infrastructure configuration management tool (eg ansible) by using that tool to maintain the yaml file and setting the DRUPAL_CONFIG_DIR environment variable to the correct value.
 
