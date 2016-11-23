@@ -24,7 +24,6 @@ Usage
 3. Set the environment variable DRUPAL_CONFIG_DIR to the name of the directory you created. (NB this can be outside of the document root).
 
 4. Create configuration management yaml files containing only the configuration settings that you wish to override. eg to modify the api_key setting of the foo_bar.settings configuration create a file called 'foo_bar.settings.yml' containing the following:
-
 <pre>
 api_key: ABCDE12345
 </pre>
