@@ -22,12 +22,12 @@ Usage
 2. Create a yaml file containing the configuration settings that you wish to override inside a 'environment_config' key eg
 
 <pre>
-    environment_config:
-      foo_module.settings
-        api_key: ABCDE12345
-      bar_module.settings
-        api_key: 901112dfh330303
-        some_other_setting: false
+environment_config:
+  foo_module.settings
+    api_key: ABCDE12345
+  bar_module.settings
+    api_key: 901112dfh330303
+    some_other_setting: false
 </pre>
 
 3. Set the environment variable DRUPAL_CONFIG to the name of the file you created. (NB this can be outside of the document root).
