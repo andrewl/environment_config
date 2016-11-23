@@ -19,27 +19,26 @@ Usage
 
 1. Install the module
 
-2. Create a yaml file containing the configuration settings that you wish to override inside a 'environment_config' key eg
+2. Create a directory to contain your environment-specific settings.
+
+3. Set the environment variable DRUPAL_CONFIG_DIR to the name of the directory you created. (NB this can be outside of the document root).
+
+4. Create configuration management yaml files containing only the configuration settings that you wish to override. eg to modify the api_key setting of the foo_bar.settings configuration create a file called 'foo_bar.settings.yml' containing the following:
 
 <pre>
-environment_config:
-  foo_module.settings
-    api_key: ABCDE12345
-  bar_module.settings
-    api_key: 901112dfh330303
-    some_other_setting: false
+api_key: ABCDE12345
 </pre>
 
-3. Set the environment variable DRUPAL_CONFIG to the name of the file you created. (NB this can be outside of the document root).
-
-4. When the cache is next rebuilt your new settings will be saved into the active configuration.
+5. When the cache is next rebuilt your new settings will be saved into the active configuration.
 
 Notes
 -----
 
 This enables you to manage per-environment configurations in your infrastructure configuration management tool (eg ansible) by using that tool to maintain the yaml file and setting the DRUPAL_CONFIG environment variable to the correct value.
 
-An alternative approach would be to modify your build/deploy scripts to call a command to set these manually (eg drush cset foo_module.settings api_key ABCDE12345)
+Pro tip: Use drush (or console) to create your initial yaml files then edit as appropriate. eg drush cget foo_bar.settings > my/environment/config/dir/foo_bar.settings.yml
+
+An alternative approach to using this module would be to modify your build/deploy scripts to call a command to set these manually (eg drush cset foo_module.settings api_key ABCDE12345)
 
 Todo
 ----
