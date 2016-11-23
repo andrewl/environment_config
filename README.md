@@ -21,13 +21,14 @@ Usage
 
 2. Create a yaml file containing the configuration settings that you wish to override inside a 'environment_config' key eg
 
-environment_config:
-  foo_module.settings
-    api_key: ABCDE12345
-  bar_module.settings
-    api_key: 901112dfh330303
-    some_other_setting: false
-     
+    environment_config:
+      foo_module.settings
+        api_key: ABCDE12345
+      bar_module.settings
+        api_key: 901112dfh330303
+        some_other_setting: false
+
+
 3. Set the environment variable DRUPAL_CONFIG to the name of the file you created. (NB this can be outside of the document root).
 
 4. When the cache is next rebuilt your new settings will be saved into the active configuration.
@@ -40,5 +41,5 @@ This enables you to manage per-environment configurations in your infrastructure
 Todo
 ----
 
-Need to check for more use cases (eg setting complex objects).
-Currently only one file per environment is possible - won't work if eg dev and stage are on the same machine as they'll be sharing the DRUPAL_CONFIG environment variable.
+- Need to check for more use cases (eg setting complex objects).
+- Currently only one file per environment is possible - won't work if eg dev and stage are on the same machine as they'll be sharing the DRUPAL_CONFIG environment variable.
