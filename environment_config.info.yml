@@ -1,0 +1,5 @@
+name: 'Environment Config'
+type: module
+description: 'Allows per-environment configuration settings'
+package: environment
+core: 8.x
