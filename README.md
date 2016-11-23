@@ -39,6 +39,8 @@ Notes
 
 This enables you to manage per-environment configurations in your infrastructure configuration management tool (eg ansible) by using that tool to maintain the yaml file and setting the DRUPAL_CONFIG environment variable to the correct value.
 
+An alternative approach would be to modify your build/deploy scripts to call a command to set these manually (eg drush cset foo_module.settings api_key ABCDE12345)
+
 Todo
 ----
 
