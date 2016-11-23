@@ -14,6 +14,8 @@ In Drupal 8, settings are managed in one of two ways.
 
 In most cases this is fine, however it does rely on module developers knowing ahead of time whether your use will require a setting to be the same across all environments (ie stored with Configuration API) or differ across environments (ie stored with the State API). In some cases you'll want to manage a Configuration setting on a per-environment basis (eg use a different API key on different environments) - if so, this module is for you.
 
+This enables you to manage per-environment configurations in your infrastructure configuration management tool (eg ansible) by using that tool to maintain the yaml file and setting the DRUPAL_CONFIG_DIR environment variable to the correct value.
+
 Usage
 -----
 
@@ -33,7 +35,7 @@ api_key: ABCDE12345
 Notes
 -----
 
-This enables you to manage per-environment configurations in your infrastructure configuration management tool (eg ansible) by using that tool to maintain the yaml file and setting the DRUPAL_CONFIG environment variable to the correct value.
+*IF YOU EXPORT YOUR ACTIVE CONFIGURATION (eg by running drush cex) THEN YOUR ENVIRONMENT-SPECIFIC CONFIGURATION WILL BE EXPORTED.* This will not usually be a problem provided you have the same set of environment-specific configurations on each environment you deploy to (because the exported setting will be overridden by their environment-specific counterparts). 
 
 Pro tip: Use drush (or console) to create your initial yaml files then edit as appropriate. eg drush cget foo_bar.settings > my/environment/config/dir/foo_bar.settings.yml
 
